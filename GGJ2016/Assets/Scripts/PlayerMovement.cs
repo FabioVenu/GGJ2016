@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     public float speed;
 
 
+
 	// Use this for initialization
 	void Start () {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         rb2d.MovePosition(rb2d.position + input * speed * Time.deltaTime);
