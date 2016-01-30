@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EvilCloudPower : MonoBehaviour {
     public GameObject iceTile;
-
+    public GameObject holeTile;
 	// Use this for initialization
 	void Start () {
 	    
@@ -14,13 +14,13 @@ public class EvilCloudPower : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
             Vector3 position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 1);
-            Instantiate(iceTile, position, transform.rotation);
+            Instantiate(iceTile, position, new Quaternion(0,0,0,1));
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
             Vector3 position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 1);
-            Instantiate(iceTile, position, transform.rotation);
+            Instantiate(holeTile, position, new Quaternion(0, 0, 0, 1));
         }
 	}
 }
