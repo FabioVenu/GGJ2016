@@ -11,9 +11,11 @@ public class CameraManager : MonoBehaviour {
     public float CameraMaxZoomOutSize = 22;       
     public float CameraZoomInTime = 1;
     public float CameraZoomOutTime = 0.5f;
+    public float CameraPositionTime = 1.0f;
     Camera cam;
 
     private float CameraZoomCurrentVelocity = 0.0f;
+    private Vector2 CameraPositionCurrentVelocity = new Vector2();
 
     // Use this for initialization
     void Start () {
@@ -44,9 +46,13 @@ public class CameraManager : MonoBehaviour {
             cameraZoomSpeed = CameraZoomInTime;
         }
 
-        Vector2 camerapos = Vector2.Lerp(new Vector2(playerPos.x, playerPos.y), new Vector2(evilCloudPos.x, evilCloudPos.y), CameraCenterAverage);
+        Vector2 new_camerapos = Vector2.Lerp(new Vector2(playerPos.x, playerPos.y), new Vector2(evilCloudPos.x, evilCloudPos.y), CameraCenterAverage);
 
-        transform.position = new Vector3(camerapos.x, camerapos.y, fixedZ);
+        // Damping also camera position to avoid "jumps" when the cloud respawns
+        Vector2 final_camerapos = Vector2.SmoothDamp(transform.position, new_camerapos, ref CameraPositionCurrentVelocity, CameraPositionTime);
+
+        transform.position = new Vector3(final_camerapos.x, final_camerapos.y, fixedZ);
+
         cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, cameraSize, ref CameraZoomCurrentVelocity, cameraZoomSpeed);
             
     }
