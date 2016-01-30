@@ -28,6 +28,14 @@ public class Ice : MonoBehaviour {
         }
     }
 
+    void OnTriggerStay2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "Player")
+        {
+            coll.gameObject.GetComponent<PlayerMovement>().FixInput(speed);
+        }
+    }
+
     void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Player")
