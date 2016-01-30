@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-    List<GameObject> inventory;
+    List<int> inventory = new List<int>();
+
 	// Use this for initialization
 	void Start () {
-        inventory = new List<GameObject>();
+        
 	}
 	
 	// Update is called once per frame
@@ -17,12 +18,12 @@ public class Inventory : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {      
-        if (coll.gameObject.tag == "Pickable")
+        if (coll.gameObject.tag == "Ingredient")
         {
-            GameObject picked = coll.gameObject;
-            inventory.Add(coll.gameObject);
-            picked.GetComponent<Renderer>().enabled = false;
-            picked.GetComponent<BoxCollider2D>().enabled = false;
+            inventory.Add(coll.gameObject.GetComponent<Ingredient>().Type);
+            DestroyObject(coll.gameObject);
+
+            // TODO: update the GUI
         }
     }
 }

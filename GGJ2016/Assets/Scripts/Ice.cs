@@ -26,7 +26,6 @@ public class Ice : MonoBehaviour {
 
     void OnDestroy()
     {
-        //GameManager.Instance.Player.GetComponent<PlayerMovement>().UnfixInput();
         ActiveCount--;
         IceColliders.Remove(gameObject.GetComponent<Collider2D>());
     }
