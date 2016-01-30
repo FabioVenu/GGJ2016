@@ -20,7 +20,6 @@ public class EvilCloudPower : MonoBehaviour {
         if (Input.GetButtonDown("Fire1") && CanThrowIce)
         {
             Vector3 position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 1);
-
             Instantiate(iceTile, position, new Quaternion(0, 0, 0, 1));
         }
 
