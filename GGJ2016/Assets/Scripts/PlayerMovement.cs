@@ -15,25 +15,44 @@ public class PlayerMovement : MonoBehaviour {
     float startStunnedTime;
     float stunnedTime;
 
+    private Collider2D collider;
+
 	// Use this for initialization
 	void Start () {
         speed = initialSpeed;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-	
+        collider = gameObject.GetComponent<Collider2D>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (!isFixedInput)
+        // Check if we are on ice
+        int collisions = 0;
+        foreach (var ic in Ice.IceColliders)
         {
-            input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (collider.IsTouching(ic))
+            {
+                collisions++;
+                if (!isFixedInput)
+                {
+                    fixedInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                    speed = 10.0f;
+                    isFixedInput = true;
+                    break;
+                }
+            }
         }
 
-        else
-        {
+        if (collisions == 0)
+            isFixedInput = false;
+
+        if (isFixedInput)
             input = fixedInput;
-        }
+        else
+            input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+       
+
         if (isStunned)
         {
             input = Vector2.zero;
@@ -42,20 +61,12 @@ public class PlayerMovement : MonoBehaviour {
                 isStunned = false;
             }
         }
+
+        if (isFixedInput)
+            Debug.Log("Fixed: " + input.ToString());
+
         rb2d.MovePosition(rb2d.position + input * speed * Time.deltaTime);
 	}
-
-    public void FixInput(float newSpeed)
-    {
-        isFixedInput = true;
-        fixedInput =  new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        speed = newSpeed;
-    }
-    public void UnfixInput()
-    {
-        isFixedInput = false;
-        speed = initialSpeed;
-    }
 
     public void Stunned(float time)
     {
