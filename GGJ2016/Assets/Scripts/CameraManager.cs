@@ -36,13 +36,10 @@ public class CameraManager : MonoBehaviour {
         else
             cameraSize = CameraMinZoomOutSize;
 
-        transform.position = new Vector3((evilCloudPos.x + playerPos.x) * CameraCenterAverage, (evilCloudPos.y + playerPos.y) * CameraCenterAverage, fixedZ);
+        Vector2 camerapos = Vector2.Lerp(new Vector2(playerPos.x, playerPos.y), new Vector2(evilCloudPos.x, evilCloudPos.y), CameraCenterAverage);
+
+        transform.position = new Vector3(camerapos.x, camerapos.y, fixedZ);
         cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, cameraSize, ref CameraZoomCurrentVelocity, CameraZoomSpeed);
             
-
-        //if (playerViewPos.x > 0.5 || playerViewPos.y > 0.5 || evilCloudViewPos.x > 0.5 || evilCloudViewPos.y > 0.5)
-        //{
-        //    transform.position += new Vector3 (0,0, - 1);
-        //}
     }
 }
