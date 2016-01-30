@@ -37,6 +37,12 @@ public class PlayerMovement : MonoBehaviour {
                 if (!isFixedInput)
                 {
                     fixedInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                    if (fixedInput.x==0 && fixedInput.y==0)
+                    {
+                        isFixedInput = false;
+                        break;
+                    }
+
                     speed = 10.0f;
                     isFixedInput = true;
                     break;
@@ -65,8 +71,6 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        if (isFixedInput)
-            Debug.Log("Fixed: " + input.ToString());
 
         rb2d.MovePosition(rb2d.position + input * speed * Time.deltaTime);
 	}

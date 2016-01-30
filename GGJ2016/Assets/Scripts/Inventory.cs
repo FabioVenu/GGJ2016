@@ -17,11 +17,21 @@ public class Inventory : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D(Collider2D coll)
-    {      
-        if (coll.gameObject.tag == "Ingredient")
+    {
+        pickIfIngredient(coll.gameObject);        
+    }
+
+    void OnTriggerStay2D(Collider2D coll)
+    {
+        pickIfIngredient(coll.gameObject);        
+    }
+
+    void pickIfIngredient(GameObject obj)
+    {
+        if (obj.tag == "Ingredient")
         {
-            inventory.Add(coll.gameObject.GetComponent<Ingredient>().Type);
-            DestroyObject(coll.gameObject);
+            inventory.Add(obj.GetComponent<Ingredient>().Type);
+            DestroyObject(obj);
 
             // TODO: update the GUI
         }

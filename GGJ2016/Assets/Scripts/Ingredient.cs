@@ -9,8 +9,7 @@ public class Ingredient : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        var pos = gameObject.transform.position;
-        gameObject.transform.DOMoveY(pos.y-1, 1).SetLoops(-1, LoopType.Yoyo);
+        gameObject.transform.DOMoveY(-1, 1).SetRelative(true).SetLoops(-1, LoopType.Yoyo);        
     }
 	
 	// Update is called once per frame
