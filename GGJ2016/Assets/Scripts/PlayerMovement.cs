@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour {
     bool isFixedInput;
     Vector3 fixedInput;
 
+    bool isStunned;
+    float startStunnedTime;
+    float stunnedTime;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +31,15 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         else input = fixedInput;
+        if (isStunned)
+        {
+            input = Vector2.zero;
+            if (Time.time - startStunnedTime > stunnedTime)
+            {
+                isStunned = false;
+            }
+        }
+
 
         rb2d.MovePosition(rb2d.position + input * speed * Time.deltaTime);
 	}
@@ -43,4 +55,12 @@ public class PlayerMovement : MonoBehaviour {
         isFixedInput = false;
         speed = initialSpeed;
     }
+
+    public void Stunned(float time)
+    {
+        isStunned = true;
+        startStunnedTime = Time.time;
+        stunnedTime = time;
+    }
+
 }
