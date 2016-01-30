@@ -50,7 +50,10 @@ public class PlayerMovement : MonoBehaviour {
         if (isFixedInput)
             input = fixedInput;
         else
+        {
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            speed = initialSpeed;
+        }
        
 
         if (isStunned)
