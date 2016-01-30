@@ -2,11 +2,18 @@
 using System.Collections;
 
 public class Ice : MonoBehaviour {
+
     public float speed = 8;
-	// Use this for initialization
-	void Start () {
-	
-	}
+    public float Time = 5;
+
+    public static int ActiveCount = 0;
+
+    // Use this for initialization
+    void Start () {
+
+        ActiveCount++;
+        DestroyObject(gameObject, Time);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,5 +34,10 @@ public class Ice : MonoBehaviour {
         {
             coll.gameObject.GetComponent<PlayerMovement>().UnfixInput();
         }
+    }
+
+    void OnDestroy()
+    {
+        ActiveCount--;
     }
 }

@@ -3,11 +3,16 @@ using System.Collections;
 
 public class Hole : MonoBehaviour {
 
-    public float time;
+    public float PlayerStunTime;
+    public float Time;
+
+    public static int ActiveCount = 0;
 
 	// Use this for initialization
 	void Start () {
-	
+
+        ActiveCount++;
+        DestroyObject(gameObject, Time);
 	}
 	
 	// Update is called once per frame
@@ -18,8 +23,13 @@ public class Hole : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Player")
         {
-            coll.gameObject.GetComponent<PlayerMovement>().Stunned(time);
+            coll.gameObject.GetComponent<PlayerMovement>().Stunned(PlayerStunTime);
             coll.gameObject.transform.position = gameObject.transform.position;
         }
+    }
+
+    void OnDestroy()
+    {
+        ActiveCount--;
     }
 }
