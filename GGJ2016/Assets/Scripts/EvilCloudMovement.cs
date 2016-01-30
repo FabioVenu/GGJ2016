@@ -8,7 +8,9 @@ public class EvilCloudMovement : MonoBehaviour {
     public float    speed = 5;    
     float           smoothTime = 1;
     Rigidbody2D     rb2d;
-    SpriteRenderer spriterenderer;
+    SpriteRenderer  spriterenderer;
+
+    private ParticleSystem particles;
 
     public float    LifeTime = 5;
 
@@ -18,7 +20,8 @@ public class EvilCloudMovement : MonoBehaviour {
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
         spriterenderer = GetComponent<SpriteRenderer>();
-	}
+        particles = GetComponentInChildren<ParticleSystem>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -39,6 +42,7 @@ public class EvilCloudMovement : MonoBehaviour {
         
         // Transparency dependent on LifeTime
         spriterenderer.color = new Color(spriterenderer.color.r, spriterenderer.color.g, spriterenderer.color.b, 1.0f - TimePercentage);
+        particles.startColor = new Color(particles.startColor.r, particles.startColor.g, particles.startColor.b, 1.0f - TimePercentage);
     }
 
     void MouseController()
