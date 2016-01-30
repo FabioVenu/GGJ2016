@@ -30,7 +30,10 @@ public class PlayerMovement : MonoBehaviour {
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
 
-        else input = fixedInput;
+        else
+        {
+            input = fixedInput;
+        }
         if (isStunned)
         {
             input = Vector2.zero;
@@ -39,8 +42,6 @@ public class PlayerMovement : MonoBehaviour {
                 isStunned = false;
             }
         }
-
-
         rb2d.MovePosition(rb2d.position + input * speed * Time.deltaTime);
 	}
 

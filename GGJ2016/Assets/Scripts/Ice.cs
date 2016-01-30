@@ -27,9 +27,9 @@ public class Ice : MonoBehaviour {
             coll.gameObject.GetComponent<PlayerMovement>().FixInput(speed);
         }
     }
-
     void OnTriggerStay2D(Collider2D coll)
     {
+        Debug.Log("STAY");
         if (coll.gameObject.tag == "Player")
         {
             coll.gameObject.GetComponent<PlayerMovement>().FixInput(speed);
@@ -44,8 +44,10 @@ public class Ice : MonoBehaviour {
         }
     }
 
+
     void OnDestroy()
     {
+        GameManager.Instance.Player.GetComponent<PlayerMovement>().UnfixInput();
         ActiveCount--;
     }
 }
