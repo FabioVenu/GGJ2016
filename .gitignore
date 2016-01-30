@@ -25,3 +25,6 @@ ExportedObj/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 GGJ2016/Temp/UnityLockfile
+GGJ2016/Library/
+*.meta
+GGJ2016/Temp/
