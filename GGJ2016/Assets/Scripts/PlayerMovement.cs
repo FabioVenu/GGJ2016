@@ -4,7 +4,8 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 
     Rigidbody2D rb2d;
-    public float speed;
+    public float initialSpeed;
+    float speed;
     public Vector2 input;
 
     bool isFixedInput;
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        speed = initialSpeed;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 	
 	}
@@ -30,13 +32,15 @@ public class PlayerMovement : MonoBehaviour {
         rb2d.MovePosition(rb2d.position + input * speed * Time.deltaTime);
 	}
 
-    public void FixInput()
+    public void FixInput(float newSpeed)
     {
         isFixedInput = true;
         fixedInput =  new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        speed = newSpeed;
     }
     public void UnfixInput()
     {
         isFixedInput = false;
+        speed = initialSpeed;
     }
 }

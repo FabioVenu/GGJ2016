@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Ice : MonoBehaviour {
-
+    public float speed = 8;
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +17,7 @@ public class Ice : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Player")
         {
-            coll.gameObject.GetComponent<PlayerMovement>().FixInput();
+            coll.gameObject.GetComponent<PlayerMovement>().FixInput(speed);
         }
     }
 
