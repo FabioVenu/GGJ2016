@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour {
 
     List<int> recipe ;
 
+
+    public List<GameObject> spawnPoints = new List<GameObject>();
+    Dictionary<GameObject, int> usedSpawnPoints = new Dictionary<GameObject, int>();
+
     [HideInInspector]
     public static GameManager Instance;
 
@@ -89,5 +93,24 @@ public class GameManager : MonoBehaviour {
         }
 
     }
+
+    public GameObject getSpawnPointForIngredient(int ingredient)
+    {
+        
+        spawnPoints.Shuffle();
+        foreach (GameObject s in spawnPoints)
+        {
+            if (!usedSpawnPoints.ContainsKey(s))
+            {
+                usedSpawnPoints.Add(s, ingredient);
+                return s;
+            }
+        }
+        return null;
+    }
+
+
+    
+
 
 }
