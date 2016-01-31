@@ -6,14 +6,17 @@ public class Timer : MonoBehaviour
 {
 
     public Text timerLabel;
-    public float time = 180;
+    public float time = 10;
     int minutes;
     int seconds;
     int fraction;
     bool start = false;
 
+    public static Timer Instance;
+
     void Start()
     {
+        Instance = this;
         StartTimer();
     }
 
@@ -47,6 +50,11 @@ public class Timer : MonoBehaviour
     public void StopTimer()
     {
         start = false;
+    }
+
+    public void AddTime(float seconds)
+    {
+        time += seconds;
     }
 
     public float GetTimeFloat()

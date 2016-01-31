@@ -20,12 +20,14 @@ public class Inventory : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        pickIfIngredient(coll.gameObject);        
+        pickIfIngredient(coll.gameObject);
+        useIfPowerUp(coll.gameObject);
     }
 
     void OnTriggerStay2D(Collider2D coll)
     {
-        pickIfIngredient(coll.gameObject);        
+        pickIfIngredient(coll.gameObject);
+        useIfPowerUp(coll.gameObject);
     }
 
     void pickIfIngredient(GameObject obj)
@@ -44,6 +46,23 @@ public class Inventory : MonoBehaviour {
             // TODO: update the GUI
         }
     }
+
+    void useIfPowerUp(GameObject obj)
+    {
+        if (obj.tag == "PowerUp")
+        {
+            var powerup = obj.GetComponent<PowerUp>();
+
+            if (powerup.CanBeTaken)
+            {
+                powerup.Taken();
+            }
+
+
+            // TODO: update the GUI
+        }
+    }
+
     public List<int> getInventory()
     {
         return inventory;
