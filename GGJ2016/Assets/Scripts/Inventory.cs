@@ -6,9 +6,11 @@ public class Inventory : MonoBehaviour {
 
     List<int> inventory = new List<int>();
 
+    public Dictionary<GameObject, GameObject> dict = new Dictionary<GameObject, GameObject>();
+
 	// Use this for initialization
 	void Start () {
-        
+                
 	}
 	
 	// Update is called once per frame
@@ -30,8 +32,14 @@ public class Inventory : MonoBehaviour {
     {
         if (obj.tag == "Ingredient")
         {
-            inventory.Add(obj.GetComponent<Ingredient>().Type);
-            DestroyObject(obj);
+            var ingredient = obj.GetComponent<Ingredient>();
+
+            if (ingredient.CanBeTaken)
+            {
+                ingredient.Taken();
+                inventory.Add(ingredient.Type);
+            }
+            
 
             // TODO: update the GUI
         }
