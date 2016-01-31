@@ -12,10 +12,15 @@ public class Timer : MonoBehaviour
     int fraction;
     bool start = false;
 
+    void Start()
+    {
+        StartTimer();
+    }
+
     void Update()
     {
 
-        if (true)
+        if (start)
         {
             time -= Time.deltaTime;
         }
@@ -25,6 +30,13 @@ public class Timer : MonoBehaviour
 
         //update the label value
         timerLabel.text = string.Format("{0:0} : {1:00}", minutes, seconds);
+
+        if (time <= 0)
+        {
+            StopTimer();
+            notifyLost();
+
+        }
     }
 
     public void StartTimer()
@@ -45,5 +57,10 @@ public class Timer : MonoBehaviour
     public string GetTimeText()
     {
         return timerLabel.text;
+    }
+
+    public void notifyLost()
+    {
+        GameManager.Instance.showLostMessage();
     }
 }

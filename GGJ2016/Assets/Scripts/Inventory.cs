@@ -36,4 +36,8 @@ public class Inventory : MonoBehaviour {
             // TODO: update the GUI
         }
     }
+    public List<int> getInventory()
+    {
+        return inventory;
+    }
 }
