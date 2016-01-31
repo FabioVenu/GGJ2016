@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour {
     float startStunnedTime;
     float stunnedTime;
 
+    public AudioClip AudioIceSkid;
+    public AudioClip AudioHoleFall;
+
     private Collider2D collider;
 
 	// Use this for initialization
@@ -45,6 +48,8 @@ public class PlayerMovement : MonoBehaviour {
 
                     speed = 10.0f;
                     isFixedInput = true;
+
+                    GameManager.Instance.AudioSource.PlayOneShot(AudioIceSkid);
                     break;
                 }
             }
@@ -80,6 +85,8 @@ public class PlayerMovement : MonoBehaviour {
         isStunned = true;
         startStunnedTime = Time.time;
         stunnedTime = time;
+
+        GameManager.Instance.AudioSource.PlayOneShot(AudioHoleFall);
     }
 
 }

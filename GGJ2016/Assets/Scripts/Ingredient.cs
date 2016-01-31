@@ -7,6 +7,8 @@ public class Ingredient : MonoBehaviour {
     public int          Type = 0;    // 0 to 4
     public GameObject   PickedPS;    // the picked particle system
 
+    public AudioClip AudioPickup;
+
     private SpriteRenderer sprite;
 
 	// Use this for initialization
@@ -48,6 +50,7 @@ public class Ingredient : MonoBehaviour {
 
         //  fade
         sprite.material.DOFade(0.0f, 2.0f).OnComplete(() => DestroyObject(gameObject));
-       
+
+        GameManager.Instance.AudioSource.PlayOneShot(AudioPickup);
     }
 }
