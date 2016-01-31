@@ -6,8 +6,6 @@ public class Ingredient : MonoBehaviour {
 
     public int          Type = 0;    // 0 to 4
     public GameObject   PickedPS;    // the picked particle system
-    public GameObject   spawnPoint;
-    public float        range;
 
     private SpriteRenderer sprite;
 
@@ -15,9 +13,6 @@ public class Ingredient : MonoBehaviour {
 	void Start () {
 
         sprite = gameObject.GetComponent<SpriteRenderer>();
-
-        if (spawnPoint!= null)
-            gameObject.transform.position = spawnPoint.transform.position + new Vector3(Random.Range(0, range), Random.Range(0, range), 0);
 
         // looping animation
         gameObject.transform.DOMoveY(-1, 1).SetRelative(true).SetLoops(-1, LoopType.Yoyo);        

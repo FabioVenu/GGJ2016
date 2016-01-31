@@ -20,9 +20,11 @@ public class GameManager : MonoBehaviour {
 
     List<int> recipe ;
 
+    public List<GameObject> IngredientsPrefabs = new List<GameObject>();
+    public List<GameObject> IngredientsSpawnPoints = new List<GameObject>();
+    public List<GameObject> PowerUpsSpawnPoints = new List<GameObject>();
 
-    public List<GameObject> spawnPoints = new List<GameObject>();
-    Dictionary<GameObject, int> usedSpawnPoints = new Dictionary<GameObject, int>();
+    private List<GameObject> usedSpawnPoints = new List<GameObject>();
 
     [HideInInspector]
     public static GameManager Instance;
@@ -32,6 +34,17 @@ public class GameManager : MonoBehaviour {
 
         Instance = this;
         generateRecipe(numberOfIngredientsInRecipe, maxIngredients);
+
+        // Spawn Ingredients!
+        IngredientsSpawnPoints.Shuffle();
+
+        foreach (var i in IngredientsPrefabs)
+        {
+            GameObject sp = getSpawnPointForIngredient();
+
+            GameObject ingredient = Instantiate(i, sp.transform.position, new Quaternion(0, 0, 0, 1)) as GameObject;
+        }
+
         
     }
 	
@@ -94,15 +107,14 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public GameObject getSpawnPointForIngredient(int ingredient)
-    {
-        
-        spawnPoints.Shuffle();
-        foreach (GameObject s in spawnPoints)
+    public GameObject getSpawnPointForIngredient()
+    {        
+        IngredientsSpawnPoints.Shuffle();
+        foreach (GameObject s in IngredientsSpawnPoints)
         {
-            if (!usedSpawnPoints.ContainsKey(s))
+            if (!usedSpawnPoints.Contains(s))
             {
-                usedSpawnPoints.Add(s, ingredient);
+                usedSpawnPoints.Add(s);
                 return s;
             }
         }
