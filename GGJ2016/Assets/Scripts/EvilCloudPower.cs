@@ -33,6 +33,11 @@ public class EvilCloudPower : MonoBehaviour {
             Vector3 position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 1);
             Instantiate(holeTile, position, new Quaternion(0, 0, 0, 1));
         }
+        if (Input.GetAxis("Fire2") < -0.5f && CanThrowHole)
+        {
+            Vector3 position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 1);
+            Instantiate(holeTile, position, new Quaternion(0, 0, 0, 1));
+        }
 	}
 
     public bool CanThrowIce
