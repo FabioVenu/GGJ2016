@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -26,6 +27,12 @@ public class GameManager : MonoBehaviour {
 
     private List<GameObject> usedSpawnPoints = new List<GameObject>();
 
+    public GameObject imagePergamena;
+    public GameObject imagePergamena1;
+    public GameObject imagePergamena2;
+    public GameObject imagePergamena3;
+
+    public List<GameObject> allSpawnedIngredients;
     [HideInInspector]
     public static GameManager Instance;
 
@@ -86,6 +93,7 @@ public class GameManager : MonoBehaviour {
             recipe.Add(j);
             allObjects.Remove(j);
         }
+        SetText();
     }
 
     public void checkIngredients()
@@ -117,6 +125,29 @@ public class GameManager : MonoBehaviour {
                 usedSpawnPoints.Add(s);
                 return s;
             }
+        }
+        return null;
+    }
+
+
+    public void SetText()
+    {
+        imagePergamena1.GetComponent<Text>().text = GetText(recipe[0]);
+        imagePergamena2.GetComponent<Text>().text = GetText(recipe[1]);
+        imagePergamena3.GetComponent<Text>().text = GetText(recipe[2]);
+        imagePergamena.SetActive(true);
+    }
+    public string GetText(int ingredientType)
+    {
+        foreach (GameObject g in allSpawnedIngredients)
+        {
+            if (g.GetComponent<Ingredient>().Type == ingredientType)
+            {
+                //return g.GetComponent<Ingredient>().GetComponent<SpriteRenderer>().GetComponent<Sprite>();
+                Debug.Log(g.name);
+                return g.name;
+            }
+
         }
         return null;
     }
