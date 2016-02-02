@@ -6,7 +6,6 @@ public class PowerUp : MonoBehaviour {
 
     public int          Type = 0;    // type of powerup 
     public GameObject   PickedPS;    // the picked particle system
-    public float        range;
 
     private SpriteRenderer sprite;
 
@@ -56,10 +55,17 @@ public class PowerUp : MonoBehaviour {
         switch (Type)
         {
             case 0:
-                // Time +30 sec!
-                Timer.Instance.AddTime(30);
+                // Time +
+                Timer.Instance.AddTime(10);
+                break;
+
+            case 1:
+                CameraManager.Instance.ActivatePowerUpZoom();
                 break;
         }
        
     }
+
+
+   
 }

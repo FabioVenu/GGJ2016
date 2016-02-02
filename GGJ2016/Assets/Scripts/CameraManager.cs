@@ -14,11 +14,16 @@ public class CameraManager : MonoBehaviour {
     public float CameraPositionTime = 1.0f;
     Camera cam;
 
+    public bool PowerUpZoom = false;
+
+    public static CameraManager Instance;
+
     private float CameraZoomCurrentVelocity = 0.0f;
     private Vector2 CameraPositionCurrentVelocity = new Vector2();
 
     // Use this for initialization
     void Start () {
+        Instance = this;
         cam = GetComponent<Camera>();
 	}
 	
@@ -35,7 +40,7 @@ public class CameraManager : MonoBehaviour {
 
         float cameraSize = CameraMinZoomOutSize;
         float cameraZoomSpeed = 0;
-        if (!playerVisible || !evilCloudVisible)
+        if (!playerVisible || !evilCloudVisible || PowerUpZoom)
         {
             cameraSize = CameraMaxZoomOutSize;
             cameraZoomSpeed = CameraZoomOutTime;
@@ -55,5 +60,16 @@ public class CameraManager : MonoBehaviour {
 
         cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, cameraSize, ref CameraZoomCurrentVelocity, cameraZoomSpeed);
             
+    }
+
+    public void ActivatePowerUpZoom()
+    {
+        PowerUpZoom = true;
+        Invoke("DisablePowerUpZoom", 3);
+    }
+
+    public void DisablePowerUpZoom()
+    {
+       PowerUpZoom = false;
     }
 }
